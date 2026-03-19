@@ -37,7 +37,24 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
-// --- NEW: Highlight Helper Function ---
+// --- NEW: Countdown Logic ---
+function getCountdown(dueDate) {
+    if (!dueDate) return { text: "", class: "" };
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+
+    const diffTime = due - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return { text: "Overdue", class: "status-overdue" };
+    if (diffDays === 0) return { text: "Today", class: "status-today" };
+    if (diffDays === 1) return { text: "Tomorrow", class: "status-upcoming" };
+    return { text: `In ${diffDays} days`, class: "status-upcoming" };
+}
+
 function highlightText(text, query) {
     if (!query) return text;
     const regex = new RegExp(`(${query})`, 'gi');
@@ -79,7 +96,6 @@ function renderTasks() {
         clearCompletedBtn.style.display = 'none';
     }
 
-    // 1. Filter
     let filteredTasks = tasks.filter(task => {
         const matchesFilter = activeTab === 'All' || task.status === activeTab;
         const matchesSearch = task.title.toLowerCase().includes(searchText) || 
@@ -87,7 +103,6 @@ function renderTasks() {
         return matchesFilter && matchesSearch;
     });
 
-    // 2. Sort
     filteredTasks.sort((a, b) => {
         if (currentSort === 'date') {
             if (!a.dueDate) return 1;
@@ -100,29 +115,27 @@ function renderTasks() {
         }
     });
 
-    if (filteredTasks.length === 0) {
-        taskGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No tasks found.</p>`;
-        return;
-    }
-
     filteredTasks.forEach((task) => {
         const priorityClass = `priority-${task.priority.toLowerCase()}`;
         const displayDate = task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'No Date';
-
-        // --- Apply Highlights Here ---
+        
+        // --- Countdown Logic Application ---
+        const countdown = getCountdown(task.dueDate);
         const highlightedTitle = highlightText(task.title, searchInput.value);
         const highlightedDesc = highlightText(task.desc, searchInput.value);
 
         const taskCard = `
             <div class="task-card ${priorityClass}" data-id="${task.id}">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                     <span class="countdown-text ${countdown.class}">${countdown.text}</span>
+                     <span class="tag tag-${task.priority.toLowerCase()}">${task.priority}</span>
+                </div>
                 <h3>${highlightedTitle}</h3>
                 <p>${highlightedDesc}</p>
-                <div class="tags">
-                    <span class="tag tag-${task.priority.toLowerCase()}">${task.priority}</span>
-                    <span class="tag tag-completed">${task.status}</span>
-                </div>
-                <div class="task-footer">
-                    <span><i data-lucide="calendar" style="width:14px; height:14px; vertical-align:text-bottom; margin-right:4px;"></i>${displayDate}</span>
+                <div class="task-footer" style="margin-top: 15px;">
+                    <span style="font-size: 0.85rem; color: var(--text-muted);">
+                        <i data-lucide="calendar" style="width:14px; height:14px; vertical-align:text-bottom; margin-right:4px;"></i>${displayDate}
+                    </span>
                     <div class="actions">
                         <button class="btn-text" onclick="fillEditModal(${task.id})">Edit</button>
                         <button class="btn-text" style="color: var(--red);" onclick="deleteTask(${task.id})">Delete</button>
