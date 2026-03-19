@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Flow Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i data-lucide="zap"></i>
+                <span>Project Flow</span>
+            </div>
+            <nav>
+                <a href="#" class="active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="#"><i data-lucide="check-square"></i> My Tasks</a>
+                <a href="#"><i data-lucide="calendar"></i> Calendar</a>
+                <a href="#"><i data-lucide="users"></i> Team</a>
+                <a href="#"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header class="top-bar">
+                <div class="search-wrapper">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search tasks...">
+                </div>
+                <div class="user-actions">
+                    <button id="theme-toggle" class="icon-btn">
+                        <i data-lucide="moon" id="theme-icon"></i>
+                    </button>
+                    <i data-lucide="bell"></i>
+                    <div class="avatar">M</div>
+                </div>
+            </header>
+
+            <section class="dashboard-header">
+                <div class="title-group">
+                    <h1>Dashboard</h1>
+                    <p>Track and manage your project tasks.</p>
+                </div>
+                <button class="btn-primary"><i data-lucide="plus"></i> Add Task</button>
+            </section>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>Total Tasks</span>
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change">+2 from last week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>In Progress</span>
+                        <i data-lucide="clock" class="icon-yellow"></i>
+                    </div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-change">3 due this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>Completed</span>
+                        <i data-lucide="check-circle-2" class="icon-green"></i>
+                    </div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-change">67% completion rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>Overdue</span>
+                        <i data-lucide="alert-triangle" class="icon-red"></i>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-change text-red">Needs attention</div>
+                </div>
+            </div>
+
+            <section class="tasks-section">
+                <div class="tasks-header">
+                    <h2>Tasks</h2>
+                    <div class="sort-container">
+                    <button class="btn-outline" id="sort-trigger">
+                        <i data-lucide="list-filter"></i>
+                        <span id="sort-label">Sort: Date</span>
+                    </button>
+                </div>
+                </div>
+                <div class="progress-section" style="margin-bottom: 20px;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span style="font-size: 0.9rem; font-weight: 600;">Overall Completion</span>
+        <span id="progress-text" style="font-size: 0.9rem; font-weight: 600; color: var(--primary);">0%</span>
+    </div>
+    <div class="progress-bar-bg" style="width: 100%; height: 8px; background: var(--border); border-radius: 10px; overflow: hidden;">
+        <div id="progress-fill" style="width: 0%; height: 100%; background: var(--green); transition: width 0.4s ease;"></div>
+    </div>
+</div>
+
+<div class="tabs-container" ...>
+    </div>
+                <div class="tabs">
+                    <button>All</button>
+                    <button>In Progress</button>
+                    <button class="active">Completed</button>
+                    <button>To Do</button>
+                    <button id="clear-completed-btn" class="btn-text" style="display: none; color: var(--red); font-size: 0.85rem; font-weight: 600;">
+                    <i data-lucide="trash-2" style="width: 14px; height: 14px; margin-right: 4px;"></i> Clear Completed
+                    </button>
+                </div>
+
+                <div class="task-grid">
+                    <div class="task-card">
+                        <h3>Write-unit-tests</h3>
+                        <p>Cover auth and payment modules with tests.</p>
+                        <div class="tags">
+                            <span class="tag tag-medium">Medium</span>
+                            <span class="tag tag-completed">Completed</span>
+                        </div>
+                        <div class="task-footer">
+                            <span>Mar 2, 2026</span>
+                            <button class="btn-text">Undo</button>
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <h3>Update-dependencies</h3>
+                        <p>Bump all packages to latest stable versions.</p>
+                        <div class="tags">
+                            <span class="tag tag-low">Low</span>
+                            <span class="tag tag-completed">Completed</span>
+                        </div>
+                        <div class="task-footer">
+                            <span>Mar 3, 2026</span>
+                            <button class="btn-text">Undo</button>
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <h3>Implement-dark-mode</h3>
+                        <p>Add theme toggle with CSS custom properties.</p>
+                        <div class="tags">
+                            <span class="tag tag-medium">Medium</span>
+                            <span class="tag tag-completed">Completed</span>
+                        </div>
+                        <div class="task-footer">
+                            <span>Mar 4, 2026</span>
+                            <button class="btn-text">Undo</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="faq-section">
+                <h3>Frequently Asked Questions</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                How do I create a new task? 
+                                <i data-lucide="chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Click the "+ Add Task" button in the top right corner. Fill in the details in the modal and hit "Create Task".</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                Can I filter tasks by status? 
+                                <i data-lucide="chevron-down"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes, use the tabs below the "Tasks" header to switch between All, In Progress, Completed, and To Do views.</p>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+        </main>
+    </div>
+
+    
+
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal">
+        <div class="modal-header">
+            <h2>Create New Task</h2>
+            <button id="close-modal"><i data-lucide="x"></i></button>
+        </div>
+        <form id="task-form">
+            <div class="form-group">
+                <label>Task Title</label>
+                <input type="text" id="task-title" placeholder="e.g. Design System" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="task-desc" placeholder="Briefly describe the task..."></textarea>
+            </div>
+            <div class="priority-status">
+            <div class="form-group">
+                <label>Priority</label>
+                <select id="task-priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="task-due-date">
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" id="task-date-input">
+        </div>
+            <button type="submit" class="btn-primary full-width">Create Task</button>
+        </form>
+        </div>
+    </div>
+    <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px;"></div>
+    <script>lucide.createIcons();</script>
+    <script src="javascript.js" defer></script>
+</body>
+</html>
