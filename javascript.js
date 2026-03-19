@@ -272,3 +272,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderTasks();
 });
+
+// --- FAQ Accordion Logic ---
+const faqQuestions = document.querySelectorAll('.faq-question');
+
+faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+        const currentFaqItem = question.parentElement;
+        const isCurrentlyActive = currentFaqItem.classList.contains('active');
+
+        // Step 1: Close all FAQ items first
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Step 2: If the item we clicked wasn't already open, open it now
+        if (!isCurrentlyActive) {
+            currentFaqItem.classList.add('active');
+        }
+    });
+});
